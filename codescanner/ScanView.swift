@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ScanView: View {
-    @State private var scannedValue: String?
-    @State private var resetScan: Bool = true
+    @State public var scannedValue: String?
+    @State public var resetScan: Bool = true
     
     var body: some View {
         ZStack {
@@ -22,26 +22,29 @@ struct ScanView: View {
             }
             
             if scannedValue != nil {
-                VStack {
-                    Spacer()
-                    Spacer()
-                    Text(scannedValue ?? "No value scanned").padding()
-                    Spacer()
-                    Button("Done") {
-                        scannedValue = nil
-                        resetScan = true
+                VStack {}
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black)
+                ScrollView {
+                    VStack {
+                        Text(scannedValue ?? "No value scanned")
+                            .padding()
+                            .textSelection(.enabled)
+                        Spacer()
+                        Button("Done") {
+                            scannedValue = nil
+                            resetScan = true
+                        }
+                        .padding()
                     }
-                    Spacer()
                 }
-                .edgesIgnoringSafeArea(.all)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black)
             }
         }
     }
 }
 
 #Preview {
-    ScanView()
+    ScanView(scannedValue: "Yooooooo", resetScan: false)
 }
 
